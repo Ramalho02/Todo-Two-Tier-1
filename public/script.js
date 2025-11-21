@@ -1,22 +1,11 @@
-let API_BASE_URL = 'http://localhost:3000'; 
+// Define a URL do backend (ALB)
+const API_BASE_URL = 'http://TodoApp-ALB-2114767128.us-east-1.elb.amazonaws.com';
 
 // Get references to DOM elements
 const taskForm = document.getElementById('task-form');
 const taskNameInput = document.getElementById('task-name');
 const taskDueDateInput = document.getElementById('task-due-date');
 const taskList = document.getElementById('task-list');
-
-// Fetch API URL from backend
-async function loadConfig() {
-  try {
-    const response = await fetch('/config');
-    const config = await response.json();
-    API_BASE_URL = config.API_BASE_URL || API_BASE_URL;
-    fetchTasks();
-  } catch (error) {
-    console.error('Error fetching config:', error);
-  }
-}
 
 // Fetch tasks from the backend API
 async function fetchTasks() {
@@ -87,4 +76,4 @@ async function deleteTask(taskId) {
 }
 
 // Load tasks on page load
-window.onload = loadConfig;
+window.onload = fetchTasks;
